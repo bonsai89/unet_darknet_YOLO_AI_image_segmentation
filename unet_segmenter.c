@@ -123,8 +123,8 @@ void predict_unet_segmenter()
     srand(2222222);
     DIR *dir;
     struct dirent *ent;
-    char *cfg = "/home/nithi/unet_darknet_git/unet.cfg";
-    char *weights = "/home/nithi/unet_darknet_git/unet.backup";
+    char *cfg = "./unet.cfg";
+    char *weights = "./unet.backup"; // You have load your model here
 
     char dirname[256],resdirname[256], filename[256], resfilename[256];
     strcpy(dirname,"./data/unet/test/");
