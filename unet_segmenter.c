@@ -118,14 +118,17 @@ void train_unet_segmenter(char *datacfg, char *cfgfile, char *weightfile, int *g
     free(base);
 }
 
-void predict_unet_segmenter(char * weights, char * cfg)
+void predict_unet_segmenter()
 {
     srand(2222222);
     DIR *dir;
     struct dirent *ent;
+    char *cfg = "/home/nithi/unet_darknet_git/unet.cfg";
+    char *weights = "/home/nithi/unet_darknet_git/unet.backup";
+
     char dirname[256],resdirname[256], filename[256], resfilename[256];
-    strcpy(dirname,"./data/unet/test1/");
-    strcpy(resdirname,"./data/unet/result1/");
+    strcpy(dirname,"./data/unet/test/");
+    strcpy(resdirname,"./data/unet/result/");
     network *net = load_network(cfg, weights, 0);
     set_batch_network(net, 1);
     if ((dir = opendir (dirname)) != NULL) {
@@ -141,14 +144,14 @@ void predict_unet_segmenter(char * weights, char * cfg)
                 printf ("%s\n", filename);
                 strncpy(input, filename, 256);
                 image im = load_image_color(input, 0, 0);
-                float *X = im.data;
+                float *X = (float *) im.data;
                 time=clock();
                 float *predictions = network_predict(net, X);
                 image pred = get_network_image(net);
                 image prmask = mask_to_rgb(pred);
 		save_image_png(prmask, resfilename);
-                show_image(pred, "orig");
-		cvWaitKey(0);
+                show_image(prmask, "orig");
+		cvWaitKey(1000000);
                 //printf("Predicted: %f\n", predictions[0]);
                 printf("%s: Predicted in %f seconds.\n", input, sec(clock()-time));
 		free_image(prmask);
@@ -163,7 +166,7 @@ void predict_unet_segmenter(char * weights, char * cfg)
 
 void run_unet_segmenter(int argc, char **argv)
 {
-    if(argc < 4){
+    if(argc < 2){
         fprintf(stderr, "usage: %s %s [train/test/valid] [cfg] [weights (optional)]\n", argv[0], argv[1]);
         return;
     }
@@ -198,7 +201,7 @@ void run_unet_segmenter(int argc, char **argv)
     char *cfg = argv[4];
     char *weights = (argc > 5) ? argv[5] : 0;
     char *filename = (argc > 6) ? argv[6]: 0;
-    if(0==strcmp(argv[2], "test")) predict_unet_segmenter(weights, cfg);
+    if(0==strcmp(argv[2], "test")) predict_unet_segmenter();
     else if(0==strcmp(argv[2], "train")) train_unet_segmenter(data, cfg, weights, gpus, ngpus, clear, display);
 }
 
