@@ -26,7 +26,7 @@ With the provided samples the network will not train completely as the train siz
 Once successfully trained the weights file will be saved under the name unet.backup under the main folder. Then you can run the prediction by using this command:
 ./darknet unet_segmenter test
 
-Here is my trained weights file under the main folder so you can directly test it:
+Here is my trained weights file copy it under the main folder and you can directly test the unet segmenter:
 https://www.dropbox.com/s/rx9hlt8m4yyn5lx/unet.backup?dl=0
 
 Feel free to adapt the code to your needs.
