@@ -12,6 +12,7 @@ I recommend using cscope to browse through the code, makes life easier!
 
 Sample data to train and test can be found in data/unet folder. (Note that I have only added 5 pairs of images to get you started)
 
+**Notes:**
 The main program that I implemented is unet_segmenter.c please browse through the code to understand it.
 
 Inorder to run this version of darknet for unet segmentation you need to build the code using makefile build system and then run:
@@ -25,11 +26,12 @@ With the provided samples the network will not train completely as the train siz
 Once successfully trained the weights file will be saved under the name unet.backup under the main folder. Then you can run the prediction by using this command:
 ./darknet unet_segmenter test
 
-I have uploaded my trained weights file under the main folder so you can directly test it.
+Here is my trained weights file under the main folder so you can directly test it:
+https://www.dropbox.com/s/rx9hlt8m4yyn5lx/unet.backup?dl=0
 
 Feel free to adapt the code to your needs.
 
-**Notes:**
+**Additional Notes:**
 The input images have to be reshaped to 224x224x3 (RGB) and the output label is a binary image (0's & 1's) as I only predict one class. If you want to use a different size image or multi-class prediction you need to the change the shape of input and output layer accordingly in the config file.
 
 I normalize the image channel-wise using the mean for each channel, if you want use different normalization you have to the change the **ipl_into_image** function in the src/image.c file.
