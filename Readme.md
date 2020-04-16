@@ -27,7 +27,7 @@ Once successfully trained the weights file will be saved under the name unet.bac
 ./darknet unet_segmenter test
 
 Here is my trained weights file copy it under the main folder and you can directly test the unet segmenter:
-https://www.dropbox.com/s/rx9hlt8m4yyn5lx/unet.backup?dl=0
+https://www.dropbox.com/s/uq5xhv6egkl7rh0/unet.backup?dl=0
 
 Feel free to adapt the code to your needs.
 
